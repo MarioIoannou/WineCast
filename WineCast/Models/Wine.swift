@@ -22,6 +22,7 @@ struct Wine: Identifiable {
         
         case rain
         case highHumidity
+        case lowHumidity
     }
     
     struct TemperatureRange {
@@ -29,10 +30,13 @@ struct Wine: Identifiable {
         let min: Double?
         let max: Double?
         
-        static let below10 = TemperatureRange(min: nil, max: 10)
-        static let range10to18 = TemperatureRange(min: 10, max: 18)
-        static let range18to25 = TemperatureRange(min: 18, max: 25)
-        static let range25to35 = TemperatureRange(min: 25, max: 35)
+        static let below5 = TemperatureRange(min: nil, max: 5)
+        static let range5to10 = TemperatureRange(min: 5, max: 10)
+        static let range10to15 = TemperatureRange(min: 10, max: 15)
+        static let range15to20 = TemperatureRange(min: 15, max: 20)
+        static let range20to25 = TemperatureRange(min: 20, max: 25)
+        static let range25to30 = TemperatureRange(min: 25, max: 30)
+        static let range30to35 = TemperatureRange(min: 30, max: 35)
         static let above35 = TemperatureRange(min: 35, max: nil)
     }
 } 
