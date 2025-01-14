@@ -13,31 +13,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         super.init()
         manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.desiredAccuracy = kCLLocationAccuracyReduced
+        manager.activityType = .other
     }
     
     func requestLocation() {
         
-        print("Requesting location...")
-        
-        let status = manager.authorizationStatus
-        
-        print("Current authorization status: \(status.rawValue)")
-        
-        switch status {
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            manager.requestLocation()
-        case .denied, .restricted:
-            self.error = NSError(
-                domain: "LocationError",
-                code: 1,
-                userInfo: [NSLocalizedDescriptionKey: "Location access is denied. Please enable it in Settings."]
-            )
-        @unknown default:
-            break
-        }
+        manager.requestWhenInUseAuthorization()
+        manager.requestLocation()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

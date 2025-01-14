@@ -20,5 +20,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>WineRecommendation</key>
+		<string>We'll use your location once to get the current weather for wine recommendations.</string>
+	</dict>
 </dict>
 </plist>
