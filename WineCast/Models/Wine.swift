@@ -3,12 +3,17 @@ import Foundation
 struct Wine: Identifiable {
     
     let id = UUID()
-    let name: String
+    let name: [String]
     let type: WineType
-    let description: String
-    let pairingNotes: String
+    let description: [String]
+    let pairingNotes: [String]
+    let learnMore: [String]
     let temperatureRange: TemperatureRange
     let weatherCondition: WeatherCondition?
+    let servingTemperature: String
+    let recommendedGlassware: String
+    let agingPotential: String
+    let quickFacts: [String]
     
     enum WineType {
         

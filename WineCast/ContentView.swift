@@ -20,7 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         
-        NavigationStack {
+        NavigationView {
             
             ZStack {
                 
@@ -33,7 +33,9 @@ struct ContentView: View {
                     WineRecommendationView(
                         wine: wine,
                         temperature: weatherService.temperature,
-                        locationName: weatherService.locationName
+                        locationName: weatherService.locationName,
+                        humidity: weatherService.humidity,
+                        isRaining: weatherService.isRaining
                     )
                 } else {
                     ErrorView {
@@ -48,9 +50,7 @@ struct ContentView: View {
             .task {
                 await fetchWineRecommendation()
             }
-            .alert("Location Access Required", 
-                   isPresented: .constant(locationManager.error != nil),
-                   actions: {
+            .alert("Location Access Required", isPresented: .constant(locationManager.error != nil)) {
                 if locationManager.authorizationStatus == .denied {
                     Button("Open Settings") {
                         showSettings = true
@@ -62,9 +62,9 @@ struct ContentView: View {
                     }
                 }
                 Button("Cancel", role: .cancel) {}
-            }, message: {
+            } message: {
                 Text(locationManager.error?.localizedDescription ?? "Unknown error")
-            })
+            }
             .sheet(isPresented: $showSettings) {
                 if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
                     SafariView(url: settingsUrl)
@@ -76,6 +76,7 @@ struct ContentView: View {
     private func fetchWineRecommendation() async {
         
         isLoading = true
+        
         defer { isLoading = false }
         
         locationManager.requestLocation()
